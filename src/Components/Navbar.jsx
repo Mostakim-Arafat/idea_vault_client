@@ -1,9 +1,19 @@
+'use client'
+
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@heroui/react";
+import { authClient } from "@/lib/auth-client";
 
-const Navbar = () => {
-    const login = false
+const Navbar =  () => {
+    const { data: session } = authClient.useSession()
+    console.log(session)
+
+    const handleSignout = async() => {
+        console.log('logout successful')
+       return await authClient.signOut();
+    }
+    
     return (
         <div className="navbar bg-base-100 shadow-sm">
             <div className="flex-1">
@@ -17,7 +27,7 @@ const Navbar = () => {
                     <Button>Ideas</Button>
                 </Link>
                 {
-                    login ?
+                    session?.user ?
                         <div>
                             {/* yes loggin */}
                             <Link href={'/AddIdeas'}>
@@ -33,8 +43,8 @@ const Navbar = () => {
                                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                                     <div className="w-10 rounded-full">
                                         <Image
-                                            alt="Tailwind CSS Navbar component"
-                                            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                                            alt={session?.user?.name}
+                                            src={session?.user?.image}
                                             width={40}
                                             height={40} />
                                     </div>
@@ -43,10 +53,10 @@ const Navbar = () => {
                                     tabIndex="-1"
                                     className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                                     <li>
-                                        <Link href={'/Profile'}> Profile</Link>  
+                                        <Link href={'/Profile'}> Profile</Link>
                                     </li>
-                                    
-                                    <li><a>Logout</a></li>
+
+                                    <li><Button onClick={() => handleSignout()}>Logout</Button></li>
                                 </ul>
                             </div>
                         </div> :
@@ -54,9 +64,6 @@ const Navbar = () => {
                             {/* no */}
                             <Link href={'/Login'}>
                                 <Button>Login</Button>
-                            </Link>
-                            <Link href={'/Register'}>
-                                <Button>Register</Button>
                             </Link>
                         </div>
                 }
