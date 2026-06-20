@@ -17,21 +17,40 @@ const CommentFunction = ({ i }) => {
         const dataObj = new FormData(e.currentTarget)
         const { Edit_Comment } = Object.fromEntries(dataObj.entries())
 
-        //     const EditObj = {
-        //     id : id,
-        //     userName : name,
-        //     Data    : data.comment,
-        //     Time    : new Date().toLocaleDateString()
-        //    }
+            const EditObj = {
+            Commentid      : i._id,
+            Data    : Edit_Comment,
+            Time    : new Date().toLocaleDateString()
+           }
+        //    console.log(EditObj)
 
-        //     const editman = await fetch(`http://localhost:5000/${}/comment`, {
-        //         method : 'PATCH',
-        //         headers : 'content-type : application/json',
-        //         body : JSON.stringify()
-        //     })
+            const editman = await fetch(`http://localhost:5000/comment`, {
+                method : 'PATCH',
+                headers : {
+                    'content-type' : 'application/json'
+                },
+                body : JSON.stringify(EditObj)
+            })
+            const editReturn = await editman.json()
+            if(editReturn.modifiedCount>0){
+                alert('Edit success')
+            }
     }
-    const deletes = () => {
+    const deletes = async() => {
 
+        const commentID = { commentID : i._id}
+        const  deleteman = await fetch(`http://localhost:5000/comment`,{
+            method : 'DELETE',
+            headers : {
+                'content-type' : 'application/json'
+            },
+            body : JSON.stringify(commentID)
+        })
+        const deleteReturn = await deleteman.json()
+        if(deleteReturn.deletedCount>0)
+        {
+            alert('delete success')
+        }
     }
     return (
         <div>
