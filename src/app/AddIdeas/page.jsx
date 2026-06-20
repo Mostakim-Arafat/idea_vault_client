@@ -1,11 +1,15 @@
 'use client'
 import { ToastContainer, toast } from 'react-toastify';
+import { authClient } from '@/lib/auth-client';
 const AddIdea = () => {
+     const { data: session } = authClient.useSession()
+     const UserId = session?.user?.id 
+    //  console.log(UserId)
     const handleSubmit = async(e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const data = Object.fromEntries(formData.entries());
-
+        data.userID = UserId
         console.log(data);
        
         const postman =  await fetch('http://localhost:5000/ideas',
@@ -15,7 +19,7 @@ const AddIdea = () => {
                 body : JSON.stringify(data)
             }
         )
-        const res = await postman.json()
+        const res = await postman.json() 
         if(res.insertedId){
             toast.success('Idea Add success')
         }
