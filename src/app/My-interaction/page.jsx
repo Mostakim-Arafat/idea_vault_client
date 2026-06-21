@@ -3,42 +3,45 @@ import { Button } from "@heroui/react";
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
 import Link from "next/link";
 
-const MyInteraction = async() => {
-    const {id} = await getUserData()
+const MyInteraction = async () => {
+    const { id } = await getUserData()
     // console.log(id)
     const commentData = await fetch(`http://localhost:5000/comment`)
     const allComment = await commentData.json()
     const yourComment = []
-    for( const i of allComment){
+    for (const i of allComment) {
         console.log(i)
-        if(i.UserId === id){
+        if (i.UserId === id) {
             yourComment.push(i)
         }
     }
     console.log(yourComment)
 
-   
-    
+
+
     return (
         <div>
-            my interaction
-            {
-                yourComment.map( comment => <Card key={comment._id} comment={comment}></Card>)
-            }
+            <h1 className="font-serif font-bold text-2xl text-center my-2.5 ">My Interactions</h1>
+            <div className="w-11/12 mx-auto mb-3 ">
+                {
+                    yourComment.map(comment => <Card key={comment._id} comment={comment}></Card>)
+                }
+            </div>
+
         </div>
     );
 };
 
 export default MyInteraction;
 
-const Card = ({comment}) => {
-    return(
+const Card = ({ comment }) => {
+    return (
         <div className="border rounded-2xl p-2">
-            <li>{comment.Data}</li>
+            <span>Comments: <p>{comment.Data}</p></span>
             <Link href={`/Ideas/${comment.IdeaPageid}`}>
-             <Button> Post: <FaRegArrowAltCircleRight/></Button>
+                <Button> Post: <FaRegArrowAltCircleRight /></Button>
             </Link>
-            
+
         </div>
     )
 }

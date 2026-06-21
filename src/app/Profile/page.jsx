@@ -32,8 +32,8 @@ const Profile = () => {
     }
 
     return (
-        <div>
-            profile
+        <div className="min-w-2xs mx-auto space-y-2 mb-2">
+           <h1 className="text-2xl text-center font-serif ">Edit profile</h1>
             <form onSubmit={editProfile}>
                 <fieldset className="fieldset">
                     <label className="label">Name</label>

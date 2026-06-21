@@ -4,16 +4,16 @@ import IdeaCard from "@/Components/ideaCard";
 import MyideaFunction from "@/Components/MyideaFunction";
 
 
-const MyIdea = async() => {
+const MyIdea = async () => {
     const functionData = await getUserData()
     const userID = functionData.id
     console.log(userID)
     const data1 = await fetch('http://localhost:5000/ideas')
     const data = await data1.json()
     const selected_data = []
-    
-    for( const i of data){
-        if( i.userID === userID){
+
+    for (const i of data) {
+        if (i.userID === userID) {
             selected_data.push(i)
         }
     }
@@ -21,13 +21,18 @@ const MyIdea = async() => {
 
     return (
         <div>
-            my idea
-            {
-                selected_data.map( data => <div key={data._id} className="flex"> 
-                <IdeaCard data={data}></IdeaCard>
-                <MyideaFunction data={data}></MyideaFunction>
-                </div>)
-            }
+            <h1 className="font-serif font-bold text-2xl text-center my-2.5 ">My Idea</h1>
+            <div className="w-11/12 mx-auto mb-3">
+                <div className="flex flex-col justify-center items-center">
+                    {
+                        selected_data.map(data => <div key={data._id} className="flex">
+                            <IdeaCard data={data}></IdeaCard>
+                            <MyideaFunction data={data}></MyideaFunction>
+                        </div>)
+                    }
+                </div>
+            </div>
+
         </div>
     );
 };

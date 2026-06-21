@@ -5,8 +5,8 @@ import HomeSec2 from "@/Components/HomeSec2";
 
 const Home = () => {
     return (
-        <div>
-            home
+        <div className="space-y-2">
+         
             <Banner></Banner>
             <Trending></Trending>
             <HomeSec1></HomeSec1>
