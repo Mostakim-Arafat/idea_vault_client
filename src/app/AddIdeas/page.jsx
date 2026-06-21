@@ -10,12 +10,16 @@ const AddIdea = () => {
         const formData = new FormData(e.currentTarget);
         const data = Object.fromEntries(formData.entries());
         data.userID = UserId
-        console.log(data);
+        //console.log(data);
+        const { data:tokenData, error } = await authClient.token()
        
         const postman =  await fetch('http://localhost:5000/ideas',
             {
                 method : 'POST',
-                headers : {'content-type' : 'application/json'},
+                headers : {
+                    'content-type' : 'application/json',
+                    'authorization' : `bearer ${tokenData?.token}`
+                },
                 body : JSON.stringify(data)
             }
         )

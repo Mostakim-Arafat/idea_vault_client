@@ -18,12 +18,14 @@ const Profile = () => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const data = Object.fromEntries(formData.entries());
-        console.log(data)
+        //console.log(data)
+        const { data:tokenData, error } = await authClient.token()
 
             const edits = await fetch(`http://localhost:5000/user/${userInfo.id}`, {
                 method: 'PATCH',
                 headers: {
-                    'content-type': 'application/json'
+                    'content-type': 'application/json',
+                     'authorization' : `bearer ${tokenData?.token}`
                 },
                 body: JSON.stringify(data)
             })

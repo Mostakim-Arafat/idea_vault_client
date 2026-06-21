@@ -2,11 +2,20 @@ import { getUserData } from "@/lib/crud";
 import { Button } from "@heroui/react";
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
 import Link from "next/link";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+
 
 const MyInteraction = async () => {
     const { id } = await getUserData()
     // console.log(id)
-    const commentData = await fetch(`http://localhost:5000/comment`)
+    const {token} = await auth.api.getToken({
+            headers : await headers()
+        })
+    const commentData = await fetch(`http://localhost:5000/comment`,{
+        headers : {
+            'authorization' : `bearer ${token}`
+        }})
     const allComment = await commentData.json()
     const yourComment = []
     for (const i of allComment) {

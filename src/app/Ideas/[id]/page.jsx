@@ -3,6 +3,8 @@ import Comment from "@/Components/Comment";
 import IdeaDetailCard from "@/Components/IdeaDetailCard";
 import { getUserData } from "@/lib/crud";
 import CommentBox from "@/Components/CommentBox";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const IdeaDetail = async ({ params }) => {
     const UserInfo = await getUserData()
@@ -10,7 +12,15 @@ const IdeaDetail = async ({ params }) => {
 
     const { id } = await params
     // console.log(id)
-    const getDetail = await fetch(`http://localhost:5000/ideas/${id}`)
+    const {token} = await auth.api.getToken({
+        headers : await headers()
+    })
+    console.log(token)
+    const getDetail = await fetch(`http://localhost:5000/ideas/${id}`,{
+        headers : {
+            'authorization' : `bearer ${token}`
+        }
+    })
     const data1 = await getDetail.json()
     //console.log(data1)
    
