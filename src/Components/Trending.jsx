@@ -6,7 +6,7 @@ const Trending = async () => {
     console.log(Limited)
     return (
         <div>
-            <h1 className="text-center font-bold text-2xl text-muted">Treanding Ideas</h1>
+            <h1 className="text-center font-bold text-2xl text-muted my-3">Treanding Ideas</h1>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 w-11/12 mx-auto">
                 {
                     Limited.map(data => <IdeaCard key={data._id} data={data}></IdeaCard>)
