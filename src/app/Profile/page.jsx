@@ -15,31 +15,27 @@ const Profile = () => {
     const userInfo = session?.user
     console.log(userInfo)
 
+
+
+
     const editProfile = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const data = Object.fromEntries(formData.entries());
-        //console.log(data)
-        const { data:tokenData, error } = await authClient.token()
-
-            const edits = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/user/${userInfo.id}`, {
-                method: 'PATCH',
-                headers: {
-                    'content-type': 'application/json',
-                     'authorization' : `bearer ${tokenData?.token}`
-                },
-                body: JSON.stringify(data)
-            })
-            const editReturn = await edits.json()
-            if(editReturn.modifiedCount>0){
-                toast('Profile Update success')
+       const { data: updated, error } = await authClient.updateUser({
+                image: data.image,
+                name: data.name,
+            });
+            if (error) {
+                toast.error(error.message || 'Failed to update profile');
+                return;
             }
-            console.log(editReturn)
+            toast.success('Profile Update success');
     }
 
     return (
         <div className="min-w-2xs mx-auto space-y-2 mb-2">
-           <h1 className="text-2xl text-center font-serif ">Edit profile</h1>
+            <h1 className="text-2xl text-center font-serif ">Edit profile</h1>
             <form onSubmit={editProfile}>
                 <fieldset className="fieldset">
                     <label className="label">Name</label>
@@ -52,7 +48,7 @@ const Profile = () => {
                     <button className="btn btn-neutral mt-4" type="submit">Edit</button>
                 </fieldset>
             </form>
-            <ToastContainer/>
+            <ToastContainer />
         </div>
     );
 };

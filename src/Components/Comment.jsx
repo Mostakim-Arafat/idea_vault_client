@@ -1,6 +1,7 @@
 'use client'
 import { authClient } from "@/lib/auth-client";
 import { ToastContainer, toast } from 'react-toastify';
+
 const Comment = ({id,user}) => {
     const handleComment = async(e) => {
         e.preventDefault()
@@ -31,6 +32,9 @@ const Comment = ({id,user}) => {
         const postedData = await postComment.json()
        if(postedData.insertedId){
         toast('comment success')
+        setTimeout(() => {
+        window.location.reload();
+    }, 2000);
        }
     }
 
