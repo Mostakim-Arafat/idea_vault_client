@@ -4,6 +4,7 @@ import { Button, Modal } from "@heroui/react";
 
 const MyideaFunction = ({data}) => {
 
+   
     const handleEdit = async(e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -26,6 +27,11 @@ const MyideaFunction = ({data}) => {
         })
         const deleteReturn = await deleteIdea.json()
         console.log(deleteReturn)
+        const deleteComment = await fetch(`http://localhost:5000/comment/${data._id}`,{
+            method : 'DELETE'
+        })
+        const deleteReturn2 = await deleteComment.json()
+        console.log(deleteReturn2)
     }
     return (
         <div>
@@ -45,6 +51,7 @@ const MyideaFunction = ({data}) => {
                                 <Modal.Body>
                                     <p>
                                        {data.shortDescription}
+                                       idea and along with <span className="font-bold">Comment</span> will be deleted
                                     </p>
                                 </Modal.Body>
                                 <Modal.Footer>

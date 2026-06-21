@@ -5,15 +5,15 @@ import Link from "next/link";
 import { Button } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 
-const Navbar =  () => {
+const Navbar = () => {
     const { data: session } = authClient.useSession()
-   // console.log(session)
+    // console.log(session)
 
-    const handleSignout = async() => {
+    const handleSignout = async () => {
         console.log('logout successful')
-       return await authClient.signOut();
+        return await authClient.signOut();
     }
-    
+
     return (
         <div className="navbar bg-base-100 shadow-sm">
             <div className="flex-1">
@@ -26,19 +26,20 @@ const Navbar =  () => {
                 <Link href={'/Ideas'}>
                     <Button>Ideas</Button>
                 </Link>
+                <Link href={'/AddIdeas'}>
+                    <Button>Add_Ideas</Button>
+                </Link>
+                <Link href={'/My-idea'}>
+                    <Button>My_Ideas</Button>
+                </Link>
+                <Link href={'/My-interaction'}>
+                    <Button>My Interaction</Button>
+                </Link>
                 {
                     session?.user ?
                         <div>
                             {/* yes loggin */}
-                            <Link href={'/AddIdeas'}>
-                                <Button>Add_Ideas</Button>
-                            </Link>
-                            <Link href={'/My-idea'}>
-                                <Button>My_Ideas</Button>
-                            </Link>
-                            <Link href={'/My-interaction'}>
-                                <Button>My Interaction</Button>
-                            </Link>
+
                             <div className="dropdown dropdown-end">
                                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                                     <div className="w-10 rounded-full">
