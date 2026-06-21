@@ -5,6 +5,7 @@ import { FaRegArrowAltCircleRight } from "react-icons/fa";
 import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import NoEntry from "@/Components/NoEntry";
 
 
 const MyInteraction = async () => {
@@ -13,7 +14,7 @@ const MyInteraction = async () => {
     const {token} = await auth.api.getToken({
             headers : await headers()
         })
-    const commentData = await fetch(`${process.env.SERVER}/comment`,{
+    const commentData = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/comment`,{
         headers : {
             'authorization' : `bearer ${token}`
         }})
@@ -34,7 +35,7 @@ const MyInteraction = async () => {
             <h1 className="font-serif font-bold text-2xl text-center my-2.5 ">My Interactions</h1>
             <div className="w-11/12 mx-auto mb-3 ">
                 {
-                    yourComment.map(comment => <Card key={comment._id} comment={comment}></Card>)
+                    yourComment.length>0 ? yourComment.map(comment => <Card key={comment._id} comment={comment}></Card>) : <NoEntry></NoEntry>
                 }
             </div>
 

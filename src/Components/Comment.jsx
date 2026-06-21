@@ -1,5 +1,6 @@
 'use client'
 import { authClient } from "@/lib/auth-client";
+import { ToastContainer, toast } from 'react-toastify';
 const Comment = ({id,user}) => {
     const handleComment = async(e) => {
         e.preventDefault()
@@ -19,7 +20,7 @@ const Comment = ({id,user}) => {
 
        const { data:tokenData, error } = await authClient.token()
 
-        const postComment =  await fetch(`${process.env.SERVER}/comment`,{
+        const postComment =  await fetch(`${process.env.NEXT_PUBLIC_SERVER}/comment`,{
         method : 'POST',
         headers : {
              'content-type' : 'application/json',
@@ -29,7 +30,7 @@ const Comment = ({id,user}) => {
     })
         const postedData = await postComment.json()
        if(postedData.insertedId){
-        alert('comment success')
+        toast('comment success')
        }
     }
 
@@ -44,6 +45,7 @@ const Comment = ({id,user}) => {
                 <textarea placeholder="Info" className="textarea textarea-info" name='comment' ></textarea>
                 <button className="btn" >save</button>
          </form>
+         <ToastContainer/>
         </div>
     );
 };

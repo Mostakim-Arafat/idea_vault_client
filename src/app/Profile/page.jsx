@@ -1,6 +1,7 @@
 'use client'
 
 import { authClient } from "@/lib/auth-client";
+import { ToastContainer, toast } from 'react-toastify';
 
 const Profile = () => {
     const { data: session, isPending } = authClient.useSession()
@@ -21,7 +22,7 @@ const Profile = () => {
         //console.log(data)
         const { data:tokenData, error } = await authClient.token()
 
-            const edits = await fetch(`${process.env.SERVER}/user/${userInfo.id}`, {
+            const edits = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/user/${userInfo.id}`, {
                 method: 'PATCH',
                 headers: {
                     'content-type': 'application/json',
@@ -30,6 +31,9 @@ const Profile = () => {
                 body: JSON.stringify(data)
             })
             const editReturn = await edits.json()
+            if(editReturn.modifiedCount>0){
+                toast('Profile Update success')
+            }
             console.log(editReturn)
     }
 
@@ -48,6 +52,7 @@ const Profile = () => {
                     <button className="btn btn-neutral mt-4" type="submit">Edit</button>
                 </fieldset>
             </form>
+            <ToastContainer/>
         </div>
     );
 };

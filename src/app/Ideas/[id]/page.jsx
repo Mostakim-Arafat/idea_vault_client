@@ -12,25 +12,28 @@ const IdeaDetail = async ({ params }) => {
 
     const { id } = await params
     // console.log(id)
-    const {token} = await auth.api.getToken({
-        headers : await headers()
+    const { token } = await auth.api.getToken({
+        headers: await headers()
     })
     console.log(token)
-    const getDetail = await fetch(`${process.env.SERVER}/ideas/${id}`,{
-        headers : {
-            'authorization' : `bearer ${token}`
+    const getDetail = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/ideas/${id}`, {
+        headers: {
+            'authorization': `bearer ${token}`
         }
     })
     const data1 = await getDetail.json()
     //console.log(data1)
-   
+
 
     return (
-        <div>
-            idea Details
-            <IdeaDetailCard info={data1} ></IdeaDetailCard> 
-            <CommentBox id = {id}></CommentBox>
-            <Comment id={id} user={UserInfo}></Comment>
+        <div className="w-11/12 mx-auto">
+            <h1 className="text-2xl text-center font-serif my-1.5 ">Details</h1>
+            <div className="space-y-3 ">
+                <IdeaDetailCard info={data1} ></IdeaDetailCard>
+                <CommentBox id={id}></CommentBox>
+                <Comment id={id} user={UserInfo}></Comment>
+            </div>
+
         </div>
     );
 };

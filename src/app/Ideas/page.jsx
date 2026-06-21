@@ -1,7 +1,8 @@
 import IdeaCard from "@/Components/ideaCard";
+import NoEntry from "@/Components/NoEntry";
 
 const Ideas = async () => {
-    const getman = await fetch(`${process.env.SERVER}/ideas`)
+    const getman = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/ideas`)
     const data = await getman.json()
     console.log('total data', data)
     return (
@@ -26,7 +27,7 @@ const Ideas = async () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-1 mb-3 w-11/12 mx-auto">
                 {
-                    data.map(i => <IdeaCard key={i._id} data={i}></IdeaCard>)
+                   data.length>0 ? data.map(i => <IdeaCard key={i._id} data={i}></IdeaCard>) : <NoEntry></NoEntry>
                 }
             </div>
 

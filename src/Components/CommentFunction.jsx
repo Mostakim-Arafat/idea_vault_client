@@ -2,6 +2,7 @@
 import { Envelope } from "@gravity-ui/icons";
 import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
+import { ToastContainer, toast } from 'react-toastify';
 
 const CommentFunction = ({ i }) => {
 
@@ -24,7 +25,7 @@ const CommentFunction = ({ i }) => {
            }
         //    console.log(EditObj)
 
-            const editman = await fetch(`${process.env.SERVER}/comment`, {
+            const editman = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/comment`, {
                 method : 'PATCH',
                 headers : {
                     'content-type' : 'application/json'
@@ -33,13 +34,13 @@ const CommentFunction = ({ i }) => {
             })
             const editReturn = await editman.json()
             if(editReturn.modifiedCount>0){
-                alert('Edit success')
+                toast('Edit success')
             }
     }
     const deletes = async() => {
 
         const commentID = { commentID : i._id}
-        const  deleteman = await fetch(`${process.env.SERVER}/comment`,{
+        const  deleteman = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/comment`,{
             method : 'DELETE',
             headers : {
                 'content-type' : 'application/json'
@@ -49,15 +50,15 @@ const CommentFunction = ({ i }) => {
         const deleteReturn = await deleteman.json()
         if(deleteReturn.deletedCount>0)
         {
-            alert('delete success')
+            toast('delete success')
         }
     }
     return (
-        <div>
+        <div className = "my-3 border-2 border-success p-2 rounded-md">
             <div>
-                <h2>{i.userName}</h2>
+                <h2><span className="text-muted">User_ </span>{i.userName}</h2>
                 <p className="font-bold">{i.Data}</p>
-                <p>{i.Time}</p>
+                <p className="text-sm text-muted">{i.Time}</p>
             </div>
             <div>
                 {
@@ -102,6 +103,7 @@ const CommentFunction = ({ i }) => {
                 }
 
             </div>
+            <ToastContainer/>
         </div>
     );
 };

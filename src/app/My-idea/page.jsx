@@ -4,6 +4,7 @@ import IdeaCard from "@/Components/ideaCard";
 import MyideaFunction from "@/Components/MyideaFunction";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import NoEntry from "@/Components/NoEntry";
 
 const MyIdea = async () => {
     const functionData = await getUserData()
@@ -12,7 +13,7 @@ const MyIdea = async () => {
     const {token} = await auth.api.getToken({
             headers : await headers()
         })
-    const data1 = await fetch(`${process.env.SERVER}/ideas`,{
+    const data1 = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/ideas`,{
         headers : {
             'authorization' : `bearer ${token}`
         }})
@@ -32,10 +33,10 @@ const MyIdea = async () => {
             <div className="w-11/12 mx-auto mb-3">
                 <div className="flex flex-col justify-center items-center">
                     {
-                        selected_data.map(data => <div key={data._id} className="flex">
+                       selected_data.length>0 ? selected_data.map(data => <div key={data._id} className="flex">
                             <IdeaCard data={data}></IdeaCard>
                             <MyideaFunction data={data}></MyideaFunction>
-                        </div>)
+                        </div>) : <NoEntry></NoEntry>
                     }
                 </div>
             </div>

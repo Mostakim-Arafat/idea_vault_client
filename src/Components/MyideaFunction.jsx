@@ -2,6 +2,7 @@
 import { Rocket } from "@gravity-ui/icons";
 import { Button, Modal } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
+import { ToastContainer, toast } from 'react-toastify';
 const MyideaFunction = ({ data }) => {
 
 
@@ -12,7 +13,7 @@ const MyideaFunction = ({ data }) => {
         console.log(data)
         const { data: tokenData, error } = await authClient.token()
 
-        const editIdea = await fetch(`${process.env.SERVER}/ideas/${data._id}`, {
+        const editIdea = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/ideas/${data._id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
@@ -21,25 +22,34 @@ const MyideaFunction = ({ data }) => {
             body: JSON.stringify(datas)
         })
         const editReturn = await editIdea.json()
-        console.log(editReturn)
+        if(editReturn.modifiedCount>1){
+             toast('Idea Edit successfully')
+        }
+       
     }
     const handleDelete = async () => {
         const { data: tokenData, error } = await authClient.token()
-        const deleteIdea = await fetch(`${process.env.SERVER}/ideas/${data._id}`, {
+        const deleteIdea = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/ideas/${data._id}`, {
             method: 'DELETE',
             headers: {
                 'authorization': `bearer ${tokenData?.token}`
             }
     })
         const deleteReturn = await deleteIdea.json()
+        if(deleteReturn.deletedCount>0){
+            toast('Idea Delete success')
+        }
         console.log(deleteReturn)
-        const deleteComment = await fetch(`${process.env.SERVER}/comment/${data._id}`, {
+        const deleteComment = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/comment/${data._id}`, {
             method: 'DELETE',
             headers: {
                 'authorization': `bearer ${tokenData?.token}`
             }
         })
         const deleteReturn2 = await deleteComment.json()
+        if(deleteReturn2.deletedCount>0){
+            toast('Comment of this Idea deleted')
+        }
         console.log(deleteReturn2)
     }
     return (
@@ -123,6 +133,7 @@ const MyideaFunction = ({ data }) => {
                     </Modal.Backdrop>
                 </Modal>
             </div>
+            <ToastContainer/>
         </div>
     );
 };

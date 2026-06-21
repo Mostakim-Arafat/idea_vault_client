@@ -1,7 +1,7 @@
 import IdeaCard from "./ideaCard";
 
 const Trending = async () => {
-    const allIdeas = await fetch(`${process.env.SERVER}/trends`)
+    const allIdeas = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/trends`)
     const Limited = await allIdeas.json()
     console.log(Limited)
     return (
