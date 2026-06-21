@@ -31,6 +31,9 @@ const Profile = () => {
                 return;
             }
             toast.success('Profile Update success');
+              setTimeout(() => {
+        window.location.reload();
+    }, 2000);
     }
 
     return (

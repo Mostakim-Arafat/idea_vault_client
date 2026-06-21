@@ -19,7 +19,7 @@ const Login = () => {
             // callbackURL: "https://example.com/callback",
         });
         if (data) {
-            console.log(data)
+            toast('login success')
         }
         else {
             toast(error.message)

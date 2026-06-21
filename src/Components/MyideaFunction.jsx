@@ -22,8 +22,11 @@ const MyideaFunction = ({ data }) => {
             body: JSON.stringify(datas)
         })
         const editReturn = await editIdea.json()
-        if(editReturn.modifiedCount>1){
+        if(editReturn.modifiedCount>0){
              toast('Idea Edit successfully')
+               setTimeout(() => {
+        window.location.reload();
+    }, 2000);
         }
        
     }
@@ -38,6 +41,9 @@ const MyideaFunction = ({ data }) => {
         const deleteReturn = await deleteIdea.json()
         if(deleteReturn.deletedCount>0){
             toast('Idea Delete success')
+              setTimeout(() => {
+        window.location.reload();
+    }, 2000);
         }
         console.log(deleteReturn)
         const deleteComment = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/comment/${data._id}`, {
