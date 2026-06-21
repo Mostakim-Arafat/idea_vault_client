@@ -32,8 +32,10 @@ const Login = () => {
         console.log(data)
     };
     return (
-        <div>
-            <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+        <div className="flex justify-center items-center text-center">
+            <div>
+                 <h1 className="text-2xl text-center font-serif my-1.5 ">Login</h1>
+                <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
                 <div className="card-body">
                     <Form onSubmit={readyLogin}>
                         <fieldset className="fieldset">
@@ -51,6 +53,8 @@ const Login = () => {
             <p>Donot have a account?: <span className="text-blue-400"><Link href={'/Register'}>Register</Link></span></p>
             <Button onClick={ () => signIn() }>By Google</Button>
             <ToastContainer />
+            </div>
+            
         </div>
     );
 };

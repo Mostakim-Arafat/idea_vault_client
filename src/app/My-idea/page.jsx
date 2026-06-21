@@ -1,4 +1,4 @@
-
+export const dynamic = 'force-dynamic';
 import { getUserData } from "@/lib/crud";
 import IdeaCard from "@/Components/ideaCard";
 import MyideaFunction from "@/Components/MyideaFunction";
@@ -7,12 +7,12 @@ import { headers } from "next/headers";
 
 const MyIdea = async () => {
     const functionData = await getUserData()
-    const userID = functionData.id
+    const userID = functionData?.id
     //console.log(userID)
     const {token} = await auth.api.getToken({
             headers : await headers()
         })
-    const data1 = await fetch('http://localhost:5000/ideas',{
+    const data1 = await fetch(`${process.env.SERVER}/ideas`,{
         headers : {
             'authorization' : `bearer ${token}`
         }})

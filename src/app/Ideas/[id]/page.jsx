@@ -16,7 +16,7 @@ const IdeaDetail = async ({ params }) => {
         headers : await headers()
     })
     console.log(token)
-    const getDetail = await fetch(`http://localhost:5000/ideas/${id}`,{
+    const getDetail = await fetch(`${process.env.SERVER}/ideas/${id}`,{
         headers : {
             'authorization' : `bearer ${token}`
         }

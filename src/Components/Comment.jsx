@@ -1,5 +1,5 @@
 'use client'
-
+import { authClient } from "@/lib/auth-client";
 const Comment = ({id,user}) => {
     const handleComment = async(e) => {
         e.preventDefault()
@@ -17,9 +17,14 @@ const Comment = ({id,user}) => {
 
        console.log(commentObj)
 
-        const postComment =  await fetch(`http://localhost:5000/comment`,{
+       const { data:tokenData, error } = await authClient.token()
+
+        const postComment =  await fetch(`${process.env.SERVER}/comment`,{
         method : 'POST',
-        headers : { 'content-type' : 'application/json'},
+        headers : {
+             'content-type' : 'application/json',
+             'authorization' : `bearer ${tokenData?.token}`
+            },
         body : JSON.stringify(commentObj)
     })
         const postedData = await postComment.json()

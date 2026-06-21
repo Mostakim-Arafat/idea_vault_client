@@ -1,7 +1,7 @@
 import IdeaCard from "@/Components/ideaCard";
 
 const Ideas = async () => {
-    const getman = await fetch('http://localhost:5000/ideas')
+    const getman = await fetch(`${process.env.SERVER}/ideas`)
     const data = await getman.json()
     console.log('total data', data)
     return (

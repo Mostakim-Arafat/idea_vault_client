@@ -13,7 +13,7 @@ const AddIdea = () => {
         //console.log(data);
         const { data:tokenData, error } = await authClient.token()
        
-        const postman =  await fetch('http://localhost:5000/ideas',
+        const postman =  await fetch(`${process.env.SERVER}/ideas`,
             {
                 method : 'POST',
                 headers : {

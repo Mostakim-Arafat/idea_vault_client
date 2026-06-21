@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import Trending from "@/Components/Trending";
 import Banner from "@/Components/Banner";
 import HomeSec1 from "@/Components/HomeSec1";

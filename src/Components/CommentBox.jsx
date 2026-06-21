@@ -3,7 +3,7 @@ import CommentFunction from "./CommentFunction";
 
 const CommentBox = async({id}) => {
 
-    const getComment = await fetch(`http://localhost:5000/ideas/${id}/comment`)
+    const getComment = await fetch(`${process.env.SERVER}/ideas/${id}/comment`)
     const data = await getComment.json()
    
     return (

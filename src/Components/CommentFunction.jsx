@@ -24,7 +24,7 @@ const CommentFunction = ({ i }) => {
            }
         //    console.log(EditObj)
 
-            const editman = await fetch(`http://localhost:5000/comment`, {
+            const editman = await fetch(`${process.env.SERVER}/comment`, {
                 method : 'PATCH',
                 headers : {
                     'content-type' : 'application/json'
@@ -39,7 +39,7 @@ const CommentFunction = ({ i }) => {
     const deletes = async() => {
 
         const commentID = { commentID : i._id}
-        const  deleteman = await fetch(`http://localhost:5000/comment`,{
+        const  deleteman = await fetch(`${process.env.SERVER}/comment`,{
             method : 'DELETE',
             headers : {
                 'content-type' : 'application/json'

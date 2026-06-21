@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { getUserData } from "@/lib/crud";
 import { Button } from "@heroui/react";
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
@@ -12,7 +13,7 @@ const MyInteraction = async () => {
     const {token} = await auth.api.getToken({
             headers : await headers()
         })
-    const commentData = await fetch(`http://localhost:5000/comment`,{
+    const commentData = await fetch(`${process.env.SERVER}/comment`,{
         headers : {
             'authorization' : `bearer ${token}`
         }})

@@ -28,8 +28,10 @@ const Register = () => {
         
     }
     return (
-        <div>
-            <Form className="flex w-96 flex-col gap-4" onSubmit={onSubmit}>
+        <div className="flex justify-center items-center my-3">
+            <div>
+                 <h1 className="text-2xl text-center font-serif ">Register</h1>
+                <Form className="flex w-96 flex-col gap-4" onSubmit={onSubmit}>
                 <TextField isRequired className="w-full max-w-64" name="fullName">
                     <Label>Full Name</Label>
                     <Input placeholder="John Doe" />
@@ -92,6 +94,8 @@ const Register = () => {
                 </div>
             </Form>
             <ToastContainer/>
+            </div>
+            
         </div>
     );
 };
